@@ -3,31 +3,37 @@ import Question from './Question'
 
 
 class Board extends Component {
-  renderSquare(maxNum) {
-    let arr = [];
-    for (let i=(maxNum -5); i<maxNum; i++) {
-      arr.push(<Question
-      key={i}
-      value={this.props.squares[i]}
-      onClick={() => this.props.onClick(i)}/>);
-    }
-    return arr;
+  constructor(props) {
+    super(props);
+    this.state = {
+      position:0,
+    };
   }
 
-  renderRow(num){
-    return <div className="board-row">
-      {this.renderSquare(num)}
-    </div>
+  renderQuestion(pos){
+    return <Question
+    key={pos}
+    value={this.props.squares[pos]}
+    onClick={() => this.props.onClick(pos)}/>
+  }
+
+  navClick(nav){
+    let current = this.state.position;
+    let newValue = nav === 'next' ? current + 1 : current - 1;
+    if(newValue >= 0 ) {
+      this.setState({
+        position: newValue,
+      })
+    }
+    
   }
 
   render() {
     return (
       <div>
-        {this.renderRow(5)}
-        {this.renderRow(10)}
-        {this.renderRow(15)}
-        {this.renderRow(20)}
-        {this.renderRow(25)}
+        <button onClick={()=>this.navClick('prev')}>Prev</button>
+        {this.renderQuestion(this.state.position)}
+        <button onClick={()=>this.navClick('next')}>Next</button>
       </div>
     );
   }
@@ -37,7 +43,7 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(25).fill('X'),
+      squares: Array(25).fill().map((_, i) => i),
       score: 0,
     };
   }
@@ -61,12 +67,17 @@ class Game extends Component {
   render() {
     return (
       <div className='container-fluid'>
-        <h2>New Game</h2>
-        <Board 
-          squares = {this.state.squares}
-          onClick={(i) => this.handleClick(i)}/>
-        <button onClick={() => this.calculateScore()}>Calculate</button>
-        <h4>{this.state.score}</h4>
+        <div className='row justify-content-md-center'>
+          <div className='col-sm-12 col-md-3'>
+            <h2>New Game</h2>
+            <Board 
+              squares = {this.state.squares}
+              onClick={(i) => this.handleClick(i)}/>
+            <button onClick={() => this.calculateScore()}>Calculate</button>
+            <h4>{this.state.score}</h4>
+          </div>
+        </div>
+        
       </div>
     );
   }
@@ -90,7 +101,7 @@ function calculateWinner(squares) {
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c, d, e] = lines[i];
-    if (squares[a] === 'O' && squares[b] === 'O' && squares[c] === 'O' && squares[d] === 'O' && squares[e] === 'O') {
+    if (squares[a] === 'X' && squares[b] === 'X' && squares[c] === 'X' && squares[d] === 'X' && squares[e] === 'X') {
       score += 1;
     }
   }
