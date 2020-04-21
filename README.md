@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and based on [React Tic-Tac-Toe tutorial](https://reactjs.org/tutorial/tutorial.html#before-we-start-the-tutorial).
 
+## Preview
+
+![image](https://user-images.githubusercontent.com/1199101/79918197-37ee1a00-842c-11ea-9213-db9ef7856033.png)
+
 ## Terminology
 
 The project name consists of 2 words : __Main - Api__.
