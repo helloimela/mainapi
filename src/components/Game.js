@@ -19,7 +19,7 @@ class Board extends Component {
         <div className='col-11'>
           {this.renderQuestion(this.props.position)}
         </div>
-        <button className={`navBtn prev ${this.props.screen}`} onClick={()=>this.props.navClick('next')}>Next</button>
+        <button className={`navBtn next ${this.props.screen}`} onClick={()=>this.props.navClick('next')}>Next</button>
       </div>
     );
   }
