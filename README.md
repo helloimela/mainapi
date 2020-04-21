@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and based on [React ic-Tac-Toe tutorial](https://reactjs.org/tutorial/tutorial.html#before-we-start-the-tutorial).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and based on [React Tic-Tac-Toe tutorial](https://reactjs.org/tutorial/tutorial.html#before-we-start-the-tutorial).
 
 ## Terminology
 
