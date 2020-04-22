@@ -1,29 +1,8 @@
 import React, { Component } from 'react';
-import Question from './Question';
 import Preview from './Preview';
+import Board from './Board';
+import Result from './Result';
 import './components.css';
-
-class Board extends Component {
-  renderQuestion(pos){
-    return <Question
-    key={pos}
-    value={this.props.squares[pos]}
-    totalQuestions={this.props.squares.length}
-    onClick={(event) => this.props.onClick(event, pos)}/>
-  }
-
-  render() {
-    return (
-      <div className='board row justify-content-center'>
-        <button className={`navBtn prev ${this.props.screen}`} onClick={()=>this.props.navClick('prev')}>Prev</button>
-        <div className='col-11'>
-          {this.renderQuestion(this.props.position)}
-        </div>
-        <button className={`navBtn next ${this.props.screen}`} onClick={()=>this.props.navClick('next')}>Next</button>
-      </div>
-    );
-  }
-}
 
 class Game extends Component {
   constructor(props) {
@@ -37,16 +16,23 @@ class Game extends Component {
       }),
       score: 0,
       position:0,
-      screen: 'start'
+      screen: 'start',
+      showCalculateBtn:'hide'
     };
   }
 
   handleClick(event, i){
     const squares = this.state.squares.slice();
     squares[i].value = event.target.dataset.answer;
+    let showBtn = this.state.showCalculateBtn;
+
+    if(i === squares.length - 1) {
+      showBtn = 'show';
+    }
     
     this.setState({
-      squares: squares
+      squares: squares,
+      showCalculateBtn: showBtn
     })
   }
 
@@ -77,7 +63,8 @@ class Game extends Component {
   calculateScore() {
     let newScore = calculateWinner(this.state.squares);
     this.setState({
-      score: newScore
+      score: newScore,
+      screen: 'result'
     })
   }
 
@@ -85,9 +72,9 @@ class Game extends Component {
     return (
       <div className='container-fluid'>
         <div className='row justify-content-center'>
-          <div className='col-11'>
-            <h2 className='pageTitle'>Where have you been in Europe Bingo!</h2>
-            <p>Choose <span className="h4 display">yes</span> or <span className="h4 display">no</span> and see how many bingo you get at the end of the quiz!</p>
+          <div className='col-11 col-md-3'>
+            <h3 className='pageTitle'>Where have you been in Europe Bingo!</h3>
+            <p className='text-center'>Choose <span className="h4 display">yes</span> or <span className="h4 display">no</span> and see how many bingo you get at the end of the quiz!</p>
             <Board 
               squares = {this.state.squares}
               onClick = {(event, i) => this.handleClick(event, i)}
@@ -96,17 +83,19 @@ class Game extends Component {
               screen = {this.state.screen}/>
             
           </div>
-          <Preview
-            squares = {this.state.squares}/>
-
-          <div className='result col-6' style={{display: this.state.screen === 'end' ? 'block' : 'none' }}>
+          <div className='result col-12' style={{display: this.state.showCalculateBtn === 'show' ? 'block' : 'none' }}>
             <button 
               className='calculateBtn'
               onClick={() => this.calculateScore()}>
-              Calculate
+              See result
             </button>
-            <h4 className='display score'>{this.state.score}</h4> 
           </div>
+          <Preview
+            squares = {this.state.squares}/>
+          <Result 
+            screen = {this.state.screen}
+            score = {this.state.score}
+          />
         </div>
         
       </div>

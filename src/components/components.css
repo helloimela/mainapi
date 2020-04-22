@@ -4,6 +4,7 @@
   --primary: #0C005B;
   --secondary: #F1B900;
   --success: #64AB23;
+  --inactive: #aea179;
 }
 
 body {
@@ -14,6 +15,17 @@ body {
 button {
   background-color: transparent;
   border:none;
+}
+
+.button-primary {
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 200px;
+  margin: 10px auto;
+  font-family: 'Pacifico', cursive;
+  color: var(--primary);
+  background-color: var(--secondary);
+  display: block;
 }
 
 button:focus {
@@ -28,7 +40,7 @@ button:focus {
 .pageTitle {
   text-align: center;
   font-family: 'Fredericka the Great', cursive;
-  padding: 50px 20px;
+  padding: 20px;
 }
 
 .result {
@@ -78,6 +90,12 @@ button:focus {
   border-width: 0 2px 2px 0;
 }
 
+.navBtn.start.prev,
+.navBtn.end.next {
+  cursor: not-allowed;
+  display: none;
+}
+
 .navBtn.prev {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
@@ -112,7 +130,12 @@ button.answer.yes {
   background-color: var(--secondary);
 }
 button.answer.no {
-  background-color: #c2c2c2;
+  background-color: var(--inactive);
+}
+
+.Yes button.answer.yes,
+.No button.answer.no {
+  border: 2px solid #fff;
 }
 
 /* Preview */
@@ -122,10 +145,11 @@ button.answer.no {
   margin-bottom: 20px;
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.board-row {
+  display: block;
+  height: 16px;
+  width: 80px;
+  margin: 0 auto;
 }
 .square {
   background: #eee;
@@ -143,4 +167,19 @@ button.answer.no {
 
 .square.Yes {
   background-color:var(--secondary);
+}
+.square.No {
+  background-color: var(--inactive);
+}
+
+/* Final Result */
+
+.finalResult {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: black;
+  margin: 0;
 }

@@ -24,7 +24,7 @@ class Preview extends Component {
   
   render() {
     return (
-      <div className="preview col-6">
+      <div className="preview col-12 text-center">
         {this.renderRow(5)}
         {this.renderRow(10)}
         {this.renderRow(15)}

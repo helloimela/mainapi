@@ -16,7 +16,7 @@ class Question extends Component {
   
   render() {
     return (
-      <div>
+      <div className={this.props.value.value}>
         <p>Question <span className="h4 display">{this.props.value.id +1}</span> of {this.props.totalQuestions}</p>
         <div className="question">
           <p>{this.renderContent()}</p>
